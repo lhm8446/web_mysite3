@@ -26,6 +26,56 @@ public class UserDao {
 	}
 	
 	// 로그인
+	public UserVo get(Long no){
+		UserVo vo = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+			
+			String sql = "select no,name,email,password,gender from users where no = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				Long no1 = rs.getLong(1);
+				String name = rs.getString(2);
+				String email = rs.getString(3);
+				String password = rs.getString(4);
+				String gender = rs.getString(5);
+				
+				vo =new UserVo();
+				vo.setNo(no1);
+				vo.setName(name);
+				vo.setEmail(email);
+				vo.setPassword(password);
+				vo.setGender(gender);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("error : " + e);
+		} finally{
+			try{
+				if(rs !=null){
+					rs.close();
+				}
+				if(pstmt !=null){
+					pstmt.close();
+				}
+				if(conn !=null){
+					conn.close();
+				}
+			}catch(SQLException e) {
+				System.out.println("error : " + e);
+			} 
+		}
+		return vo;
+	}
 	public UserVo get(String email, String password){
 		UserVo vo = null;
 		Connection conn = null;
@@ -41,7 +91,6 @@ public class UserDao {
 			pstmt.setString(1, email);
 			pstmt.setString(2, password);
 			
-
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()){

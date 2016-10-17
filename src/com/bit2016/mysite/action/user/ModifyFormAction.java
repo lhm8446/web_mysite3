@@ -20,16 +20,10 @@ public class ModifyFormAction implements Action {
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		
-		//UserVo userVo = new UserDao().get(authUser.getPassword());
+		UserVo userVo = new UserDao().get(authUser.getNo());
 		
-		UserVo userVo = new UserVo();
-		userVo.setNo(10L);
-		userVo.setName("이하민");
-		userVo.setGender("male");
-		userVo.setEmail("kickscar@gmail.com");
 		
 		request.setAttribute("userVo", userVo);
 		WebUtil.forward(request, response, "/WEB-INF/views/user/modifyform.jsp");
 	}
-
 }

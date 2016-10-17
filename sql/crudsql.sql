@@ -13,3 +13,7 @@ select no,name from users where email = 'lhm8446@gmail.com' and password = '1234
 
 select * from users;
 
+select no,name,email,password,gender from users where no = 2;
+
+--update 
+update users set name = '김하민',password = '2345',gender = 'male' where no = 2;

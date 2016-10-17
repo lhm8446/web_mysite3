@@ -35,14 +35,12 @@ public class LoginAction implements Action {
 		//로그인 성공 -> 인증처리
 		System.out.println("로그인 성공");
 		
-		//false >> jsession  와 연동된 세션객체가 웞으면 null 리턴
+		//false >> jsession 와 연동된 세션객체가 웞으면 null 리턴
 		//true  >> jsession 와 연결된 세션 객체가 없으면 만들어서 리턴
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authUser", vo);
 		
 		WebUtil.redirect(request, response, "/mysite3/main");
-		
-		
+			
 	}
-
 }

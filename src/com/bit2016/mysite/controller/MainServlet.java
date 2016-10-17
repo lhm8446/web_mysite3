@@ -33,5 +33,4 @@ public class MainServlet extends HttpServlet {
 
 		doGet(request, response);
 	}
-
 }
