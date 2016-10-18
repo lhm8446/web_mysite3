@@ -33,7 +33,6 @@ public class ModifyAction implements Action {
 		
 		dao.update(vo);
 
-		WebUtil.redirect(request, response, "/WEB-INF/views/main/index.jsp");
+		WebUtil.redirect(request, response, "/mysite3/user?a=modifyform&update=success");
 	}
-
 }

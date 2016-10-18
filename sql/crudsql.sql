@@ -13,7 +13,10 @@ select no,name from users where email = 'lhm8446@gmail.com' and password = '1234
 
 select * from users;
 
+select * from guestbook;
+
 select no,name,email,password,gender from users where no = 2;
 
 --update 
 update users set name = '이하민',password = '1234',gender = 'male' where no = 2;
+
