@@ -12,18 +12,28 @@ import com.bit2016.mysite.vo.UserVo;
 import com.bit2016.web.Action;
 import com.bit2016.web.util.WebUtil;
 
-public class ModifyFormAction implements Action {
+public class ModifyAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		Long no = Long.parseLong(request.getParameter("no"));
+		String name = request.getParameter("name");
+		String password = request.getParameter("password");
+		String gender = request.getParameter("gender");
 		
-		UserVo userVo = new UserDao().get(authUser.getNo());
+		UserVo vo = new UserVo();
 		
-		request.setAttribute("userVo", userVo);
+		vo.setNo(no);
+		vo.setName(name);
+		vo.setPassword(password);
+		vo.setGender(gender);
 		
-		WebUtil.forward(request, response, "/WEB-INF/views/user/modifyform.jsp");
+		UserDao dao = new UserDao();
+		
+		dao.update(vo);
+
+		WebUtil.redirect(request, response, "/WEB-INF/views/main/index.jsp");
 	}
+
 }

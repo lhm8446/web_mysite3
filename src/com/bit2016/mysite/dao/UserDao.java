@@ -121,6 +121,52 @@ public class UserDao {
 		}
 		return vo;
 	}
+	public void update(UserVo vo){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection();
+			String sql = "update users set name = ?,password = ?,gender = ? where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			pstmt.setString(1, vo.getName());
+			pstmt.setString(2, vo.getPassword());
+			pstmt.setString(3, vo.getGender());
+			pstmt.setLong(4, vo.getNo());
+			
+			pstmt.executeUpdate();
+			
+//			if(rs.next()){
+//				Long no1 = rs.getLong(1);
+//				String name = rs.getString(2);
+//				String email = rs.getString(3);
+//				String password = rs.getString(4);
+//				String gender = rs.getString(5);
+//				
+//				vo =new UserVo();
+//				vo.setNo(no1);
+//				vo.setName(name);
+//				vo.setEmail(email);
+//				vo.setPassword(password);
+//				vo.setGender(gender);
+//			}
+
+		} catch (SQLException e) {
+			System.out.println("error : " + e);
+		} finally{
+			try{
+				if(pstmt !=null){
+					pstmt.close();
+				}
+				if(conn !=null){
+					conn.close();
+				}
+			}catch(SQLException e) {
+				System.out.println("error : " + e);
+			} 
+		}
+	}
 	public void insert(UserVo vo){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -129,7 +175,6 @@ public class UserDao {
 			String sql = "insert INTO USERS VALUES(user_seq.nextval , ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			
-		
 			pstmt.setString(1, vo.getName());
 			pstmt.setString(2, vo.getEmail());
 			pstmt.setString(3, vo.getPassword());

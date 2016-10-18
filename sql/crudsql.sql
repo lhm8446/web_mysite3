@@ -16,4 +16,4 @@ select * from users;
 select no,name,email,password,gender from users where no = 2;
 
 --update 
-update users set name = '김하민',password = '2345',gender = 'male' where no = 2;
+update users set name = '이하민',password = '1234',gender = 'male' where no = 2;

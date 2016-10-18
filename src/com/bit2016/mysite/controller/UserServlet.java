@@ -24,7 +24,8 @@ public class UserServlet extends HttpServlet {
 		ActionFactory af = new UserActionFactory();
 		Action action = af.getAction(actionName);
 	
-		action.execute(request, response);	}
+		action.execute(request, response);	
+	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

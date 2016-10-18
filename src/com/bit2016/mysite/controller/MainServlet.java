@@ -12,7 +12,6 @@ import com.bit2016.mysite.action.main.MainActionFactory;
 import com.bit2016.web.Action;
 import com.bit2016.web.ActionFactory;
 
-
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -28,9 +27,7 @@ public class MainServlet extends HttpServlet {
 		action.execute(request, response);
 	}
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		doGet(request, response);
 	}
 }
