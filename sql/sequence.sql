@@ -10,6 +10,7 @@ maxvalue 9999999999;
 
 
 drop sequence guestbook_SEQ;
+
 create sequence guestbook_seq
 start WITH 1 
 increment by 1

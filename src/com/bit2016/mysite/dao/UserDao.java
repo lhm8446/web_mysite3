@@ -136,21 +136,6 @@ public class UserDao {
 			pstmt.setLong(4, vo.getNo());
 			
 			pstmt.executeUpdate();
-			
-//			if(rs.next()){
-//				Long no1 = rs.getLong(1);
-//				String name = rs.getString(2);
-//				String email = rs.getString(3);
-//				String password = rs.getString(4);
-//				String gender = rs.getString(5);
-//				
-//				vo =new UserVo();
-//				vo.setNo(no1);
-//				vo.setName(name);
-//				vo.setEmail(email);
-//				vo.setPassword(password);
-//				vo.setGender(gender);
-//			}
 
 		} catch (SQLException e) {
 			System.out.println("error : " + e);
