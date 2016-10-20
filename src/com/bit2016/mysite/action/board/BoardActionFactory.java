@@ -11,15 +11,15 @@ public class BoardActionFactory extends ActionFactory {
 		
 		if("writeform".equals(actionName)){
 			action = new WriteFormAction();
-		}
-		else if("write".equals(actionName)){
+		}else if("write".equals(actionName)){
 			action = new WriteAction();
-		}
-		else{
+		}else if("view".equals(actionName)){
+			action = new ViewAction();
+		}else if("rewrite".equals(actionName)){
+			action = new RewriteFormAction();
+		}else{
 			action = new ListAction();
 		}
-
 		return action;
 	}
-
 }

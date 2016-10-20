@@ -26,7 +26,7 @@ select * from board;
 
 
 -- view
-select no, title, content from board where no = 2; 
+select no, title, content, hit,group_no, order_no,depth from board where no = 2; 
 
 update board set hit = hit + 1 where no = 2;          -- 조회수 늘리기 
 
@@ -54,11 +54,6 @@ insert into board values(board_seq.nextval, '배고프다 그만', '냉무', sys
 -- 답글
 update board set order_no = order_no +1 where group_no = 2 and order_no > 1;  --부모 글 순서
 
-insert into board 
-values(board_seq.nextval, '짬뽕싫어', '냉무', sysdate, 0, 
-	   2, -- 부모글의 그룹
-	   2, -- 부모글 순서 +1 
-	   1, -- 부모글 깊이 +1
-	   2);
+insert into board values(board_seq.nextval, '짬뽕싫어', '냉무', sysdate, 0, 2, -- 부모글의 그룹--  2, -- 부모글 순서 +1--  1, -- 부모글 깊이 +1-	   2);
 
 --
