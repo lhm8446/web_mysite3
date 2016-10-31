@@ -2,12 +2,104 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> 
+
 <!doctype html>
 <html>
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link href="${pageContext.request.contextPath }/assets/css/user.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+$(function(){
+	
+	$("#join-form").submit(function(){
+		// 1.이름 체크
+		if($("#name").val()==""){
+			$("#dialog p").text("이름은 필수입력 항목입니다.");
+			$("#dialog").dialog();
+			$("#name").focus();
+			return false;
+		};
+		
+		//2.1 이메일이 비어있느지 체크
+		if($("#email").val()==""){
+			$("#dialog p").text("이메일은 필수입력 항목입니다.");
+			$("#dialog").dialog();
+			$("#email").focus();
+			return false;
+		}
+		
+		// 2.2 이메일 중복체크 유무
+		if($("#img-chkemail").is(":visible")==false){
+			$("#dialog p").text("중복체크는 필수 항목입니다.");
+			$("#dialog").dialog();
+			return false;
+		}
+		
+		// 3. 비밀번호 체크
+		if($("input[type='password']").val()==""){
+			$("#dialog p").text("비밀번호는 필수입력 항목입니다.");
+			$("#dialog").dialog();
+			$("input[type='password']").focus();
+			return false;
+		}
+		
+		// 4.약관동의
+		if($("#agree-prov").is(":checked")==false){
+			$("#dialog p").text("약관동의 필수 항목입니다.");
+			$("#dialog").dialog();
+			return false;
+		}
+		return true;
+	});
+	
+	
+	$("#email").change(function(){
+		 $("#img-chkemail").hide();
+		 $("#btn-chkemail").show();
+	});
+	
+	$("#btn-chkemail").click(function(){
+	  var email = $("#email").val();
+	  if(email == ""){
+		  return;
+	  }
+	  $.ajax({
+		 url:"/mysite3/api/user?a=chkemail&email="+email,
+		 type:"get",
+		 dataType: "json",
+		 data:"",
+		 //contentType: "application/json",
+		 success: function(response){
+			 if(response.result == "fail"){
+				 console.log(response.message);
+				 return ;
+			 }
+			 
+			 //success
+			 if(response.data == "exist"){
+				 alert("이미 존재하는 이메일입니다.");
+				 $("#email").val("").focus();
+				 return;
+			 }
+			 
+			 //존재하지 않는 이메일
+			 $("#img-chkemail").show();
+			 $("#btn-chkemail").hide();
+			 
+		 },
+		 error: function(jqXHR, status, e){
+			 console.log(status + ":" + e);
+		 }
+	  });
+	});
+});
+
+</script>
+
 </head>
 <body>
 	<div id="container">
@@ -22,7 +114,8 @@
 
 					<label class="block-label" for="email">이메일</label>
 					<input id="email" name="email" type="text" value="">
-					<input type="button" value="id 중복체크">
+					<img id="img-chkemail" style="width:12px; display:none" src="${pageContext.request.contextPath }/assets/images/check.png"/>
+					<input id="btn-chkemail" type="button" value="중복체크">
 					
 					<label class="block-label">패스워드</label>
 					<input name="password" type="password" value="">
@@ -47,5 +140,9 @@
 	 	<c:import url="/WEB-INF/views/includes/navigation.jsp" />
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</div>
+	<div id="dialog" title="가입폼 체크" style="display:none">
+  <p>ㄴ</p>
+</div>
+	
 </body>
 </html>
