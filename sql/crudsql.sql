@@ -16,6 +16,7 @@ update users set name = '이하민',password = '1234',gender = 'male' where no =
 
 commit;
 
+select * from guestbook;
 
 
 -- *******board*******
@@ -43,7 +44,7 @@ select * from (select no, title, hit, reg_date, depth, name, users_no, rownum as
 					order by GROUP_NO desc, order_no asc))
 where (1-1)*5+1 <= rn and rn <= 1*5;
 
-
+select * from guestbook where no = 65;
 -- 새로운 글
 insert into board values(board_seq.nextval, '안녕', '안녕', sysdate, 0, nvl((select max(group_no) from board),0)+1 , 1, 0 ,2);
 
@@ -56,4 +57,4 @@ update board set order_no = order_no +1 where group_no = 2 and order_no > 1;  --
 
 insert into board values(board_seq.nextval, '짬뽕싫어', '냉무', sysdate, 0, 2, -- 부모글의 그룹--  2, -- 부모글 순서 +1--  1, -- 부모글 깊이 +1-	   2);
 
---
+
